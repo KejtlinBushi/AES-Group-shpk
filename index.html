@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AES GROUP – Architecture & Engineering Services</title>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+
+<style>
+:root {
+  --main-yellow: #EEC300;
+  --dark-blue: #223344; 
+  --light-gray: #f8f8f8;
+  --white: #ffffff;
+}
+
+
+* {margin:0;padding:0;box-sizing:border-box;}
+body {
+  font-family: 'Montserrat', sans-serif;
+  background: var(--white);
+  color: var(--dark-blue);
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+}
+
+/* NAVBAR */
+nav {
+  position: fixed;
+  top: 0; left: 0; width: 100%;
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 25px 70px;
+  transition: all .4s ease;
+  z-index: 100;
+}
+nav.scrolled {
+  background: #223344;
+  backdrop-filter: blur(8px);
+  padding: 15px 70px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+.navbar-brand {
+  font-family: 'Montserrat', sans-serif;
+  color: var(--main-yellow);
+  font-size: 1.9rem;
+  letter-spacing: 1px;
+  text-decoration: none;
+  font-weight: bolder;
+}
+
+
+.navbar-nav {
+  display: flex;                
+  flex-direction: row;         
+  list-style: none;             
+  margin: 0;
+  padding: 0;
+  align-items: center;
+}
+
+.navbar-nav li {
+  margin-left: 35px;         
+}
+
+.navbar-nav a {
+  color: var(--white);
+  text-decoration: none;
+  font-weight: 500;
+  position: relative;
+  transition: color .3s ease;
+}
+
+.navbar-nav a:hover {
+  color: var(--main-yellow);
+}
+
+
+/* HERO SECTION */
+.banner {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+}
+.banner video {
+  width: 100%; height: 100%;
+  object-fit: cover;
+  transform-origin: center;
+  transition: transform .7s ease, opacity .7s ease;
+}
+.banner::before {
+  content: "";
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, rgba(28,40,51,0.55), rgba(28,40,51,0.8));
+  z-index: 1;
+}
+.banner-text {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  justify-content: center; align-items: center;
+  text-align: center; color: var(--white);
+  z-index: 2;
+}
+.banner-text h1 {
+  font-family: 'Montserrat',sans-serif;
+  color: var(--main-yellow);
+  font-weight: bold;
+  font-size: 4rem;
+  line-height: 1.1;
+  letter-spacing: 2px;
+  animation: fadeIn 1.2s ease-in-out forwards;
+}
+
+.banner-text span {
+  display: block;
+  font-size: 4.8rem;
+  color: var(--white);
+}
+.banner-text p {
+  font-size: 1.15rem;
+  margin-top: 20px;
+  color: #eaeaea;
+  max-width: 650px;
+  animation: fadeIn 1.8s ease-in-out forwards;
+}
+@keyframes fadeIn {
+  from {opacity: 0; transform: translateY(30px);}
+  to {opacity: 1; transform: translateY(0);}
+}
+.scroll-down {
+  position: absolute; bottom: 35px; left: 50%;
+  transform: translateX(-50%);
+  color: var(--main-yellow);
+  font-size: 1.9rem;
+  animation: bounce 2s infinite;
+  z-index: 3;
+  cursor: pointer;
+}
+@keyframes bounce {
+  0%,100% {transform: translate(-50%,0);}
+  50% {transform: translate(-50%,-12px);}
+}
+
+/* AOS animation fade-up */
+[data-aos]{opacity:0;transform:translateY(40px);filter:blur(6px);}
+[data-aos].aos-animate{opacity:1;transform:translateY(0);filter:blur(0);}
+
+/* SECTIONS */
+section {
+  padding: 110px 30px;
+  text-align: center;
+}
+section h2 {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 2.6rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
+.divider {
+  width: 80px; height: 4px;
+  background: var(--main-yellow);
+  margin: 20px auto 30px;
+  border-radius: 2px;
+}
+section p {
+  max-width: 900px;
+  margin: 0 auto;
+  font-size: 1.05rem;
+  line-height: 1.9;
+}
+.light-section {
+  background: var(--white);
+}
+.dark-section {
+  background: var(--dark-blue);
+  color: var(--white);
+}
+
+/* PROJECTS */
+.projects img {
+  width: 260px; height: 185px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin: 15px;
+  transition: all .4s ease;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+.projects img:hover {
+  transform: translateY(-6px) scale(1.05);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+/* BUTTON */
+.view-btn {
+  display: inline-block;
+  margin-top: 35px;
+  padding: 13px 36px;
+  border-radius: 30px;
+  background: var(--main-yellow);
+  color: var(--dark-blue);
+  font-weight: 600;
+  text-decoration: none;
+  letter-spacing: .6px;
+  transition: all .3s ease;
+  box-shadow: 0 4px 15px rgba(238,195,0,0.3);
+}
+.view-btn:hover {
+  border: 2px solid var(--main-yellow);
+  color: var(--white);
+  box-shadow: none;
+}
+/* ==== FOOTER ==== */
+
+.home-footer {
+  background: url(../images/footer.png) center center/cover no-repeat;
+  background-color: #ffffff;
+  color: #223344; 
+  padding: 50px 80px 40px;
+  position: relative;
+  font-family: 'Montserrat', sans-serif;
+}
+
+/* Top row */
+.home-footer .footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  padding-bottom: 15px;
+}
+
+/* Brand */
+.home-footer .footer-brand {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 1.9rem;
+  font-weight: 700;
+  color: #EEC300;
+  text-decoration: none;
+}
+
+/* Navigation links */
+.home-footer .footer-nav {
+  list-style: none;
+  display: flex;
+  gap: 35px;
+  margin: 0;
+  padding: 0;
+}
+
+.home-footer .footer-nav li a {
+  text-decoration: none;
+  color: #EEC300;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.home-footer .footer-nav li a:hover {
+  color: #EEC300;
+  font-weight: bold;
+}
+
+/* Contact info line */
+.home-footer .footer-bottom {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 0.95rem;
+  color: #223344; 
+  line-height: 1.8;
+}
+
+.home-footer .footer-bottom span {
+  margin: 0 12px;
+  display: inline-block;
+}
+
+.home-footer .footer-bottom i {
+  color: #EEC300;
+  margin-right: 6px;
+}
+
+/* Scroll to top */
+.return-to-top {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  background: #EEC300;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  opacity: 0;
+  visibility: hidden;
+  z-index: 10;
+}
+
+.return-to-top.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+.return-to-top:hover {
+  background: #223344; 
+  color: #EEC300;
+  border: 2px solid #EEC300;
+}
+
+</style>
+
+</head>
+
+<body>
+<!-- NAVBAR -->
+<nav>
+  <a class="navbar-brand" href="#">AES GROUP</a>
+  <ul class="navbar-nav">
+    <li><a href="#home">Home</a></li>
+  
+    <li><a href="about.html">About</a></li>
+      <li><a href="services.html">Services</a></li>
+    <li><a href="projects.html">Projects</a></li>
+    <li><a href="contact.html">Contact</a></li>
+    <li class="lang-switch">
+      <button onclick="changeLang('sq')" class="btn btn-outline-warning">AL</button>
+      <button onclick="changeLang('en')" class="btn btn-outline-warning">EN</button>
+    </li>
+  </ul>
+</nav>
+
+
+<!-- HERO -->
+<div class="banner" id="home">
+  <video src="images/videos/construction_site.mp4" autoplay muted loop></video>
+  <div class="banner-text">
+    <h1 id="home-title" class="yellow-word">Architecture &<br><span>Engineering</span></h1>
+    <p id="mission-main" class="white-word">Designing the future with precision and vision.</p>
+  </div>
+  <div class="scroll-down"><i class="fa-solid fa-chevron-down"></i></div>
+</div>
+
+<!-- MISSION -->
+<section class="light-section" id="mission" data-aos="fade-up">
+  <h2 id="home-mission">Our Mission</h2>
+  <div class="divider"></div>
+  <p id="home-mission-p">
+    "AES GROUP" aims to become a successful company in Albania and in the Region in the field of design, study, and supervision as well as project management.<br><br>
+    Quality, seriousness, and professionalism are at the center of our work. Our mission is to create long-term value for our clients by providing high-quality services across design, transport, infrastructure, and civil construction.
+  </p>
+</section>
+
+<!-- ABOUT -->
+<section class="dark-section" data-aos="fade-up">
+  <h2 id="home-about-heading">About AES GROUP</h2>
+  <div class="divider"></div>
+  <p id="home-about-p">
+    AES GROUP is a multidisciplinary engineering and consulting company delivering innovative solutions in architecture, infrastructure, and technology. We combine modern design methods with deep technical knowledge to transform ideas into efficient, sustainable, and impactful projects across Albania and beyond.
+  </p>
+</section>
+
+<!-- PROJECTS -->
+<section class="light-section projects" data-aos="fade-up">
+  <h2 id="home-projects">A Glimpse of Our Projects</h2>
+  <div class="divider"></div>
+  <img src="images/itProject2.jpg" alt="IT Project" />
+  <img src="images/energyPhoto1.webp" alt="Energy Project" />
+  <img src="images/transportPhoto1.jpg" alt="Transport Project" />
+  <img src="images/constructionPhoto2.jpg" alt="Construction Project" />
+  <br>
+  <a href="projects.html" class="view-btn" id="home-projects-btn">Our Projects</a>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="dark-section" id="contact" data-aos="fade-up">
+  <h2 id="home-contact-heading">Ready to Build Great Things?</h2>
+  <div class="divider"></div>
+  <p id="home-contact-p">Let’s start your next project together and turn your ideas into reality.</p>
+  <a href="contact.html" class="view-btn" id="home-contact-btn">Contact Us</a>
+</section>
+<!-- ===== FOOTER ===== -->
+<footer class="home-footer">
+  <div class="container">
+    <div class="footer-top">
+      <a class="footer-brand" href="index.html">AES GROUP</a>
+      <ul class="footer-nav">
+        <li><a href="services.html" id="home-s1">Services</a></li>
+        <li><a href="about.html" id="home-a1">About</a></li>
+        <li><a href="contact.html" id="home-c1">Contact</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-bottom">
+      <span><i class="fa-solid fa-phone"></i> +355 69 613 0296</span>
+      <span><i class="fa-solid fa-envelope"></i> info@aesgroup.al</span>
+      <span><i class="fa-solid fa-location-dot"></i> Str. “Sami Frasheri”, Building 2/199, Entrance 5, Apart 51, Tirane, Albania</span>
+    </div>
+  </div>
+
+  <div class="return-to-top">
+    <i class="fa-solid fa-chevron-up"></i>
+  </div>
+</footer>
+
+<div class="return-to-top"><i class="fa-solid fa-chevron-up"></i></div>
+
+<script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
+<script>
+AOS.init({duration:1000, once:false, offset:120, easing:"ease-in-out"});
+window.addEventListener("scroll",()=>{
+  const video=document.querySelector(".banner video");
+  const text=document.querySelector(".banner-text");
+  const nav=document.querySelector("nav");
+  const scale=Math.max(.85,1-window.scrollY/1200);
+  const opacityVid=Math.max(.5,1-window.scrollY/800);
+  const opacityTxt=Math.max(0,1-window.scrollY/500);
+  video.style.transform=`scale(${scale})`;
+  video.style.opacity=opacityVid;
+  text.style.opacity=opacityTxt;
+  nav.classList.toggle("scrolled",window.scrollY>80);
+});
+document.querySelector(".scroll-down").addEventListener("click",()=>document.querySelector("#mission").scrollIntoView({behavior:"smooth"}));
+const topBtn=document.querySelector(".return-to-top");
+window.addEventListener("scroll",()=>topBtn.classList.toggle("show",window.scrollY>600));
+topBtn.addEventListener("click",()=>window.scrollTo({top:0,behavior:"smooth"}));
+</script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/lang.js"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
